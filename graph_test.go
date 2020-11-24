@@ -5,6 +5,40 @@ import (
 	"testing"
 )
 
+func TestAddEdgeToNonDirectedGraph(t *testing.T) {
+	g1 := NewGraph(false)
+
+	g1.AddNode("a")
+	g1.AddNode("b")
+
+	g1.AddEdge("b", "a", 3)
+
+	e1 := g1.GetEdge("b", "a")
+	e2 := g1.GetEdge("a", "b")
+
+	if e1 != 3 || e2 != 3 {
+		t.Fatalf(`Edge a-b: %+v`, e1)
+		t.Fatalf(`Edge b-a: %+v`, e2)
+	}
+}
+
+func TestAddEdgeToDirectedGraph(t *testing.T) {
+	g1 := NewGraph(true)
+
+	g1.AddNode("a")
+	g1.AddNode("b")
+
+	g1.AddEdge("b", "a", 3)
+
+	e1 := g1.GetEdge("b", "a")
+	e2 := g1.GetEdge("a", "b")
+
+	if e1 != 3 || e2 == 3 {
+		t.Fatalf(`Edge a-b: %+v`, e1)
+		t.Fatalf(`Edge b-a: %+v`, e2)
+	}
+}
+
 func TestAddNodeToGraph(t *testing.T) {
 	g1 := NewGraph(true)
 
